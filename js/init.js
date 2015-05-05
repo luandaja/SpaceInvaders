@@ -3,4 +3,4 @@
 
     $(".button-collapse").sideNav();
   }); 
-})();
+})(jQuery);
