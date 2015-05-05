@@ -8,12 +8,11 @@ body, html{
 canvas {
   display: block;
   margin: auto;
-  position :absolute;
+  /*  position :absolute;*/
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  
   image-rendering: optimizeSpeed;
   image-rendering: -moz-crisp-edges;
   image-rendering: -webkit-optimize-contrast;
