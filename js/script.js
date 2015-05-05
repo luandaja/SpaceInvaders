@@ -181,10 +181,6 @@ var Rect = Class.extend({
 
 
 
-// ###################################################################
-// Globals
-//
-// ###################################################################
 var canvas = null;
 var ctx = null;
 var spriteSheetImg = null;
@@ -637,7 +633,7 @@ function resolveBulletEnemyCollisions() {
       if (checkRectCollision(bullet.bounds, alien.bounds)) {
         alien.alive = bullet.alive = false;
         particleManager.createExplosion(alien.position.x, alien.position.y, 'white', 70, 5,5,3,.15,50);
-        player.score += 25;
+        player.score += 30;
       }
     }
   }
@@ -706,10 +702,8 @@ function drawBottomHud() {
   fillText(player.lives + ' x ', 10, CANVAS_HEIGHT - 7.5, 'white', 20);
   ctx.drawImage(spriteSheetImg, player.clipRect.x, player.clipRect.y, player.clipRect.w, 
                  player.clipRect.h, 45, CANVAS_HEIGHT - 23, player.clipRect.w * 0.5,
-                 player.clipRect.h * 0.5);
-  //fillText('CREDIT: ', CANVAS_WIDTH - 115, CANVAS_HEIGHT - 7.5);
+                 player.clipRect.h * 0.5);  
   fillCenteredText('PUNTAJE: ' + player.score, CANVAS_WIDTH/2, 20);
-  //fillBlinkingText('00', CANVAS_WIDTH - 25, CANVAS_HEIGHT - 7.5, TEXT_BLINK_FREQ);
 }
 
 function drawAliens(resized) {
