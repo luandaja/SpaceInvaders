@@ -35,14 +35,12 @@ canvas {
   max-width: 580px;
   max-height: 580px;
 }
-<<<<<<< HEAD
 .perfiles{
   max-width: 300px;
-  border-radius: 50%; 
-=======
-#historia,#como {  
+  border-radius: 50%; }
+  
+#historia, #como {  
   font-size: 20px;
   font-family: sans-serif;
   background-color: #fafafa;
->>>>>>> origin/master
 }
