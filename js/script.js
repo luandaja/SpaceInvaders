@@ -1,5 +1,5 @@
 /* Simple JavaScript Inheritance
- * MIT Licensed.
+ *s MIT Licensed.
  */
 (function() {
   var initializing = false,
