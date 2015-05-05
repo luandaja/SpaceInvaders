@@ -1,42 +1,30 @@
 /* Simple JavaScript Inheritance
- * By John Resig http://ejohn.org/
  * MIT Licensed.
  */
-// Inspired by base2 and Prototype
 (function() {
   var initializing = false,
     fnTest = /xyz/.test(function() {
       xyz;
     }) ? /\b_super\b/ : /.*/;
 
-  // The base Class implementation (does nothing)
   this.Class = function() {};
 
-  // Create a new Class that inherits from this class
   Class.extend = function(prop) {
     var _super = this.prototype;
 
-    // Instantiate a base class (but only create the instance,
-    // don't run the init constructor)
     initializing = true;
     var prototype = new this();
     initializing = false;
 
-    // Copy the properties over onto the new prototype
     for (var name in prop) {
-      // Check if we're overwriting an existing function
       prototype[name] = typeof prop[name] == "function" &&
         typeof _super[name] == "function" && fnTest.test(prop[name]) ?
         (function(name, fn) {
           return function() {
             var tmp = this._super;
 
-            // Add a new ._super() method that is the same method
-            // but on the super-class
             this._super = _super[name];
 
-            // The method only need to be bound temporarily, so we
-            // remove it when we're done executing
             var ret = fn.apply(this, arguments);
             this._super = tmp;
 
@@ -46,30 +34,21 @@
         prop[name];
     }
 
-    // The dummy class constructor
     function Class() {
-      // All construction is actually done in the init method
       if (!initializing && this.init)
         this.init.apply(this, arguments);
     }
 
-    // Populate our constructed prototype object
     Class.prototype = prototype;
 
-    // Enforce the constructor to be what we expect
     Class.prototype.constructor = Class;
 
-    // And make this class extendable
     Class.extend = arguments.callee;
 
     return Class;
   };
 })();
 
-// ###################################################################
-// shims
-//
-// ###################################################################
 (function() {
   var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
   window.requestAnimationFrame = requestAnimationFrame;
@@ -86,10 +65,6 @@
   }
 })();
 
-// ###################################################################
-// Constants
-//
-// ###################################################################
 var IS_CHROME = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 var CANVAS_WIDTH = 640;
 var CANVAS_HEIGHT = 640;
@@ -97,6 +72,7 @@ var SPRITE_SHEET_SRC = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAEACA
 var LEFT_KEY = 37;
 var RIGHT_KEY = 39;
 var SHOOT_KEY = 88;
+var disparo = 32;
 var TEXT_BLINK_FREQ = 500;
 var PLAYER_CLIP_RECT = {
   x: 0,
@@ -140,10 +116,6 @@ var ALIEN_TOP_ROW = [{
 var ALIEN_X_MARGIN = 40;
 var ALIEN_SQUAD_WIDTH = 11 * ALIEN_X_MARGIN;
 
-// ###################################################################
-// Utility functions & classes
-//
-// ###################################################################
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
 }
@@ -197,10 +169,6 @@ var Rect = Class.extend({
   }
 });
 
-// ###################################################################
-// Globals
-//
-// ###################################################################
 var canvas = null;
 var ctx = null;
 var spriteSheetImg = null;
@@ -218,10 +186,6 @@ var alienCount = 0;
 var wave = 1;
 var hasGameStarted = false;
 
-// ###################################################################
-// Entities
-//
-// ###################################################################
 var BaseSprite = Class.extend({
   init: function(img, x, y) {
     this.img = img;
@@ -311,6 +275,12 @@ var Player = SheetSprite.extend({
         this.bulletDelayAccumulator = 0;
       }
     }
+     if (wasKeyPressed(disparo)) {
+      if (this.bulletDelayAccumulator > 0.5) {
+        this.shoot();
+        this.bulletDelayAccumulator = 0;
+      }
+    }
   },
 
   updateBullets: function(dt) {
@@ -326,13 +296,10 @@ var Player = SheetSprite.extend({
   },
 
   update: function(dt) {
-    // update time passed between shots
     this.bulletDelayAccumulator += dt;
 
-    // apply x vel
     this.position.x += this.xVel * dt;
 
-    // cap player position in screen bounds
     this.position.x = clamp(this.position.x, this.bounds.w / 2, CANVAS_WIDTH - this.bounds.w / 2);
     this.updateBullets(dt);
   },
@@ -340,7 +307,6 @@ var Player = SheetSprite.extend({
   draw: function(resized) {
     this._super(resized);
 
-    // draw bullets
     for (var i = 0, len = this.bullets.length; i < len; i++) {
       var bullet = this.bullets[i];
       if (bullet.alive) {
@@ -378,7 +344,6 @@ var Enemy = SheetSprite.extend({
     this.scale.set(0.5, 0.5);
     this.alive = true;
     this.onFirstState = true;
-    this.stepDelay = 1; // try 2 secs to start with...
     this.stepAccumulator = 0;
     this.doShoot - false;
     this.bullet = null;
@@ -506,24 +471,16 @@ var ParticleExplosion = Class.extend({
   }
 });
 
-// ###################################################################
-// Initialization functions
-//
-// ###################################################################
 function initCanvas() {
-  // create our canvas and context
   canvas = document.getElementById('game-canvas');
   ctx = canvas.getContext('2d');
 
-  // turn off image smoothing
   setImageSmoothing(false);
 
-  // create our main sprite sheet img
   spriteSheetImg = new Image();
   spriteSheetImg.src = SPRITE_SHEET_SRC;
   preDrawImages();
 
-  // add event listeners and initially resize
   window.addEventListener('resize', resize);
   document.addEventListener('keydown', onKeyDown);
   document.addEventListener('keyup', onKeyUp);
@@ -592,10 +549,6 @@ function init() {
   resize();
 }
 
-// ###################################################################
-// Helpful input functions
-//
-// ###################################################################
 function isKeyDown(key) {
   return keyStates[key];
 }
@@ -604,10 +557,6 @@ function wasKeyPressed(key) {
   return !prevKeyStates[key] && keyStates[key];
 }
 
-// ###################################################################
-// Drawing & Update functions
-//
-// ###################################################################
 function updateAliens(dt) {
   if (updateAlienLogic) {
     updateAlienLogic = false;
@@ -770,15 +719,10 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-// ###################################################################
-// Event Listener functions
-//
-// ###################################################################
 function resize() {
   var w = window.innerWidth;
   var h = window.innerHeight;
 
-  // calculate the scale factor to keep a correct aspect ratio
   var scaleFactor = Math.min(w / CANVAS_WIDTH, h / CANVAS_HEIGHT);
 
   if (IS_CHROME) {
@@ -787,7 +731,6 @@ function resize() {
     setImageSmoothing(false);
     ctx.transform(scaleFactor, 0, 0, scaleFactor, 0, 0);
   } else {
-    // resize the canvas css properties
     canvas.style.width = CANVAS_WIDTH * scaleFactor + 'px';
     canvas.style.height = CANVAS_HEIGHT * scaleFactor + 'px';
   }
@@ -803,10 +746,6 @@ function onKeyUp(e) {
   keyStates[e.keyCode] = false;
 }
 
-// ###################################################################
-// Start game!
-//
-// ###################################################################
 window.onload = function() {
   init();
   animate();
