@@ -4,7 +4,9 @@
 	<meta charset="UTF-8">
 	<title>Space Invaders</title>
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css">
+
   <link rel="stylesheet" href="css/estilos.css">
 
 
@@ -14,7 +16,12 @@
 
   <nav>
     <div class="nav-wrapper grey darken-4">
-      <a href="#!" class="brand-logo center">Logo</a>
+
+      <a href="#!" class="brand-logo center">
+        <img class="logo center" src="img/Logo.png">
+
+      </a>
+
       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
       
       <ul class="side-nav" id="mobile-demo">
@@ -27,7 +34,7 @@
   </nav>
 
    <div class="card" id="cuerpo">
-   <div class="row black-text z-depth-2">
+   <div class="row black-text z-depth-2 black">
     <div class="col s12 hide-on-med-and-down">
       <ul class="tabs">
         <li class="tab col s3"><a class="black-text" href="#comoJugar">Cómo jugar</a></li>
@@ -36,16 +43,56 @@
         <li class="tab col s3"><a class="black-text" href="#integrantes">Quiénes somos</a></li>
       </ul>
     </div>
-    <div id="comoJugar" class="col s12">
+    <div id="comoJugar" class="tabItem">
+       
+      
+      <ul class="collection with-header">
+        <li class="collection-header"><h4>En PC</h4></li>
+        <li class="collection-item">Te mueves con las flechas</li>
+        <li class="collection-item">Disparas con la barra espaciadora</li>
+      </ul>
+      <ul class="collection with-header">
+        <li class="collection-header"><h4>En tablets</h4></li>
+        <li class="collection-item">Te mueves con los botones que aparecerán</li>
+        <li class="collection-item">Disparas tocando la pantalla</li>
+      </ul>
+      <ul class="collection with-header">
+        <li class="collection-header"><h4>General</h4></li>
+        <li class="collection-item"><p id="como"></p></li>
+      </ul>
        <p id="como"></p> 
+
     </div>
-    <div id="jugar" class="col s12">
+    <div id="jugar" class="tabItem">
       <canvas id="game-canvas" width="500" height="500"></canvas>
+      <div class="hide-on-large-only">
+       <a class="btn-floating btn-large waves-effect waves-light red left" onclick="MOVER_LEFT_MOVIL()"><i class="mdi-content-add"></i></a>
+       <a class="right btn-floating btn-large waves-effect waves-light red "><i class="mdi-content-add" onclick="MOVER_RIGHT_MOVIL()"></i></a>
+      </div>
     </div>
-    <div id="Historia" class="col s12">
-      <p id="historia" >historia del juego</p>      
+    <div id="Historia" class="tabItem">
+    <div class="Cartas">
+      <div class="row">
+        <div class="col s12 m12">
+          <div class="card">
+            <div class="card-image">
+              <img src="img/Logo.png">
+              <span class="card-title">Historia</span>
+            </div>
+            <div class="card-content">
+              <p id="historia" >historia del juego</p>      
+            </div>
+            <div class="card-action">
+              <a href="http://es.wikipedia.org/wiki/Space_Invaders">Más información</a>
+              <a onclick="$('ul.tabs').tabs('select_tab', 'jugar');">Jugar ya!</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div id="integrantes" class="col s12">
+    </div>
+
+    <div id="integrantes" class="tabItem">
           
       <ul class="collection">
         <li class="collection-item avatar">
@@ -89,22 +136,22 @@
   </div>
 </div>
   <footer class="page-footer grey darken-4">
-        
-          <div class="footer-copyright">
-            <div class="container center">
+     
+    <div class="footer-copyright">
+    <div class="container center">
             © 2015 Copyright
-            </div>
-          </div>
-        </footer>
+    </div>
+    </div>
+  </footer>
 
 
 
 
+  <script src="js/script.js"></script>
 
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
   <script src="js/init.js"></script>
   
-  <script src="js/script.js"></script>
 </body>
 </html>

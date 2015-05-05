@@ -94,8 +94,9 @@ var CANVAS_HEIGHT = 640;
 var SPRITE_SHEET_SRC = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAEACAYAAAADRnAGAAACGUlEQVR42u3aSQ7CMBAEQIsn8P+/hiviAAK8zFIt5QbELiTHmfEYE3L9mZE9AAAAqAVwBQ8AAAD6THY5CgAAAKbfbPX3AQAAYBEEAADAuZrC6UUyfMEEAIBiAN8OePXnAQAAsLcmmKFPAQAAgHMbm+gbr3Sdo/LtcAAAANR6GywPAgBAM4D2JXAAABoBzBjA7AmlOx8AAEAzAOcDAADovTc4vQim6wUCABAYQG8QAADd4dPd2fRVYQAAANQG0B4HAABAawDnAwAA6AXgfAAAALpA2uMAAABwPgAAgPoAM9Ci/R4AAAD2dmqcEQIAIC/AiQGuAAYAAECcRS/a/cJXkUf2AAAAoBaA3iAAALrD+gIAAADY9baX/nwAAADNADwFAADo9YK0e5FMX/UFACA5QPSNEAAAAHKtCekmDAAAAADvBljtfgAAAGgMMGOrunvCy2uCAAAACFU6BwAAwF6AGQPa/XsAAADYB+B8AAAAtU+ItD4OAwAAAFVhAACaA0T7B44/BQAAANALwGMQAAAAADYO8If2+P31AgAAQN0SWbhFDwCAZlXgaO1xAAAA1FngnA8AACAeQPSNEAAAAM4CnC64AAAA4GzN4N9NSfgKEAAAAACszO26X8/X6BYAAAD0Anid8KcLAAAAAAAAAJBnwNEvAAAA9Jns1ygAAAAAAAAAAAAAAAAAAABAQ4COCENERERERERERBrnAa1sJuUVr3rsAAAAAElFTkSuQmCC';
 var LEFT_KEY = 37;
 var RIGHT_KEY = 39;
-var disparo = 32;
-var disparoclick;
+var DISPARO = 32;
+var DISPARO_CLICK;
+var INICIO_MOVIL = 0;
 
 document.onclick = captura_click;
 function captura_click(e) {
@@ -106,11 +107,24 @@ function captura_click(e) {
   } else {
     HaHechoClick = e.target;
   }
-  disparoclick = HaHechoClick;
-  console.log("Contenido sobre lo que ha hecho click: "+ HaHechoClick);  
+  DISPARO_CLICK = HaHechoClick;
+  console.log("Has hecho lcik en "+HaHechoClick);
 }
 
+var LEFT_MOVIL=0;
+var RIGHT_MOVIL=0;
+function MOVER_LEFT_MOVIL()
+{
+  LEFT_MOVIL = 1;
+  console.log("LEFT");
+}
 
+function MOVER_RIGHT_MOVIL()
+{
+  RIGHT_MOVIL = 1;
+  console.log("RIGHT");
+
+}
 var SHOOT_KEY = 88;
 var TEXT_BLINK_FREQ = 500;
 var PLAYER_CLIP_RECT = { x: 0, y: 204, w: 62, h: 32 };
@@ -285,6 +299,12 @@ var Player = SheetSprite.extend({
       this.xVel = -175;
     } else if (isKeyDown(RIGHT_KEY)) {
       this.xVel = 175;
+      } else if (LEFT_MOVIL == 1) {
+      this.xVel = -175;
+      LEFT_MOVIL =0;
+      } else if (RIGHT_MOVIL ==1) {
+      this.xVel = 175;
+      RIGHT_MOVIL =0;
     } else this.xVel = 0;
     
     if (wasKeyPressed(SHOOT_KEY)) {
@@ -294,17 +314,17 @@ var Player = SheetSprite.extend({
       }
     }
     
-    if (wasKeyPressed(disparo)) {
+    if (wasKeyPressed(DISPARO)) {
       if (this.bulletDelayAccumulator > 0.5) {
         this.shoot();
         this.bulletDelayAccumulator = 0;
       }
     }
-    if (disparoclick == "[object HTMLCanvasElement]") {
+    if (DISPARO_CLICK == "[object HTMLCanvasElement]") {
       if (this.bulletDelayAccumulator > 0.5) {
         this.shoot();
         this.bulletDelayAccumulator = 0;
-        disparoclick = "0";
+        DISPARO_CLICK = "0";
       }
     }
   },
@@ -730,9 +750,10 @@ function animate() {
   var now = window.performance.now();
   var dt = now - lastTime;
   if (dt > 100) dt = 100;
-  if (wasKeyPressed(13) && !hasGameStarted) {
+  if (wasKeyPressed(13) && !hasGameStarted || DISPARO_CLICK == "[object HTMLCanvasElement]" && INICIO_MOVIL==0 ) {
     initGame();
     hasGameStarted = true;
+    INICIO_MOVIL = 1;
   }
   
   if (hasGameStarted) {
