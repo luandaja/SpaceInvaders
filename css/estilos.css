@@ -1,4 +1,6 @@
-
+.tabs .indicator{
+  background-color: black;
+}
 canvas {
   display: block;
   margin: auto;
@@ -13,7 +15,11 @@ canvas {
   image-rendering: -webkit-optimize-contrast;
   image-rendering: optimize-contrast
 }
-
+#cuerpo
+{
+  margin: 0 auto;
+  padding: 0 1%; 
+}
 #game-canvas{
   max-width: 580px;
   max-height: 580px;
