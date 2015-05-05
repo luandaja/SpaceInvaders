@@ -36,7 +36,10 @@ canvas {
   max-height: 580px;
 }
 #historia,#como {  
-  font-size: 20px;
+  font-size: 17px;
   font-family: sans-serif;
   background-color: #fafafa;
+  margin:30px;
+  padding: 15px;
+  box-shadow: rgb(150,150,150) 5px 5px 10px inset;
 }
