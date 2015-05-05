@@ -12,7 +12,7 @@ footer{
 canvas {
   display: block;
   margin: auto;
-  padding: 10px;   
+     
   /*  position :absolute;*/
   top: 0;
   left: 0;
@@ -35,8 +35,17 @@ canvas {
   max-width: 580px;
   max-height: 580px;
 }
+<<<<<<< HEAD
 #historia,#como {  
   font-size: 17px;
+=======
+.perfiles{
+  max-width: 300px;
+  border-radius: 50%; }
+  
+#historia, #como {  
+  font-size: 20px;
+>>>>>>> origin/master
   font-family: sans-serif;
   background-color: #fafafa;
   margin:30px;
