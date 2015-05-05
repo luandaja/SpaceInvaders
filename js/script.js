@@ -1,6 +1,10 @@
 /* Simple JavaScript Inheritance
+<<<<<<< HEAD
  * By John Resig http://ejohn.org/
  * MIT Licensed.
+=======
+ *s MIT Licensed.
+>>>>>>> origin/master
  */
 // Inspired by base2 and Prototype
 (function(){
@@ -724,7 +728,8 @@ function drawGame(resized) {
 
 function drawStartScreen() {
   fillCenteredText("Space Invaders", CANVAS_WIDTH/2, CANVAS_HEIGHT/2.75, '#FFFFFF', 36);
-  fillBlinkingText("Press enter to play!", CANVAS_WIDTH/2, CANVAS_HEIGHT/2, 500, '#FFFFFF', 36);
+  fillCenteredText("Proyecto de Programacion Web", CANVAS_WIDTH/2, CANVAS_HEIGHT/2, '#FFFFFF', 36);
+  fillBlinkingText("Presione Enter para jugar!", CANVAS_WIDTH/2, CANVAS_HEIGHT/1.5, 500, '#FFFFFF', 36);
 }
 
 function animate() {
