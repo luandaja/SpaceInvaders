@@ -12,27 +12,22 @@
   
 
   <nav>
-    <div class="nav-wrapper">
-      <a href="#!" class="brand-logo">Logo</a>
+    <div class="nav-wrapper grey darken-4">
+      <a href="#!" class="brand-logo center">Logo</a>
       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="components.html">Components</a></li>
-        <li><a href="javascript.html">Javascript</a></li>
-        <li><a href="mobile.html">Mobile</a></li>
-      </ul>
+      
       <ul class="side-nav" id="mobile-demo">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="components.html">Components</a></li>
-        <li><a href="javascript.html">Javascript</a></li>
-        <li><a href="mobile.html">Mobile</a></li>
+        <li><a onclick="$('ul.tabs').tabs('select_tab', 'comoJugar');">Cómo Jugar</a></li>
+        <li><a onclick="$('ul.tabs').tabs('select_tab', 'jugar');">Jugar</a></li>
+        <li><a onclick="$('ul.tabs').tabs('select_tab', 'Historia');">Historia</a></li>
+        <li><a onclick="$('ul.tabs').tabs('select_tab', 'integrantes');">Quiénes Somos</a></li>
       </ul>
     </div>
   </nav>
 
    <div class="card" id="cuerpo">
    <div class="row black-text z-depth-2">
-    <div class="col s12">
+    <div class="col s12 hide-on-med-and-down">
       <ul class="tabs">
         <li class="tab col s3"><a class="black-text" href="#comoJugar">Cómo jugar</a></li>
         <li class="tab col s3"><a class="black-text active" href="#jugar">Jugar</a></li>
