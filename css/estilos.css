@@ -12,7 +12,7 @@ footer{
 canvas {
   display: block;
   margin: auto;
-  padding: 10px;   
+     
   /*  position :absolute;*/
   top: 0;
   left: 0;
@@ -34,4 +34,8 @@ canvas {
 #game-canvas{
   max-width: 580px;
   max-height: 580px;
+}
+.perfiles{
+  max-width: 300px;
+  border-radius: 50%; 
 }
