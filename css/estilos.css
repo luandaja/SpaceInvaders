@@ -4,11 +4,6 @@ body{
   display: block;
 }
 
-footer{
-
-  clear: both;
-}
-
 canvas {
   display: block;
   margin: auto;
@@ -26,12 +21,21 @@ canvas {
 .tabs .indicator{
   background-color: black;
 }
+#comoJugar, #Historia, #integrantes{
+   background-image: url("https://aulavirtual.upc.edu.pe/branding/themes/NUEVOUPC/images/bblearn_2011_bg.png");
+  background-repeat: repeat;
+}
+
 #cuerpo
 {
   margin: 0 auto;
   padding: 0 1%; 
 }
+
 #game-canvas{
   max-width: 580px;
   max-height: 580px;
+}
+#jugar{
+  background-color: black;
 }
